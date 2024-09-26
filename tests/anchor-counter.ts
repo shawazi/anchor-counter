@@ -24,7 +24,7 @@ describe("anchor-counter", () => {
     expect(account.count.toNumber()).to.equal(0);
   });
 
-  it("Increments the counter", async () => {
+  it("Increments the counter by 1", async () => {
     await program.methods
       .increment()
       .accounts({
@@ -37,7 +37,7 @@ describe("anchor-counter", () => {
     expect(account.count.toNumber()).to.equal(1);
   });
 
-    it("Decrements the counter", async () => {
+    it("Decrements the counter by 1", async () => {
     await program.methods
       .decrement()
       .accounts({
@@ -50,4 +50,29 @@ describe("anchor-counter", () => {
     expect(account.count.toNumber()).to.equal(0);
   });
 
+  it("Increments the counter by 5", async () => {
+    await program.methods
+      .increment5()
+      .accounts({
+        counter: counterKeypair.publicKey,
+        user: provider.wallet.publicKey,
+      })
+      .rpc();
+
+    const account = await program.account.counter.fetch(counterKeypair.publicKey);
+    expect(account.count.toNumber()).to.equal(5);
+  });
+
+  it("Decrements the counter by 5", async () => {
+    await program.methods
+      .decrement5()
+      .accounts({
+        counter: counterKeypair.publicKey,
+        user: provider.wallet.publicKey,
+      })
+      .rpc();
+
+    const account = await program.account.counter.fetch(counterKeypair.publicKey);
+    expect(account.count.toNumber()).to.equal(0);
+  });
 });

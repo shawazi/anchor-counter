@@ -1,8 +1,8 @@
 use anchor_lang::prelude::*;
 
+pub mod constants;
 pub mod instructions;
 pub mod state;
-pub mod constants;
 
 use instructions::*;
 
@@ -23,5 +23,12 @@ pub mod anchor_counter {
     pub fn decrement(ctx: Context<DecrementUpdate>) -> Result<()> {
         instructions::decrement::decrement_handler(ctx)
     }
-}
 
+    pub fn increment5(ctx: Context<IncrementFiveUpdate>) -> Result<()> {
+        instructions::increment5::increment5_handler(ctx)
+    }
+
+    pub fn decrement5(ctx: Context<DecrementFiveUpdate>) -> Result<()> {
+        instructions::decrement5::decrement5_handler(ctx)
+    }
+}
