@@ -1,5 +1,5 @@
-use anchor_lang::prelude::*;
 use crate::state::Counter;
+use anchor_lang::prelude::*;
 
 #[derive(Accounts)]
 pub struct Initialize<'info> {
@@ -12,7 +12,7 @@ pub struct Initialize<'info> {
 
 pub fn handler(ctx: Context<Initialize>) -> Result<()> {
     let counter = &mut ctx.accounts.counter;
-    let previous_count = counter.count - 1;
-    msg!("Counter incremented. Previous count: {}; New count: {}.", previous_count, counter.count);
+    counter.count = 0; // Initialize the counter to 0
+    msg!("Counter initialized. Initial count: {}.", counter.count);
     Ok(())
 }
